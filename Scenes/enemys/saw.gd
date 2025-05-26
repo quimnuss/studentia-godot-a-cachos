@@ -4,7 +4,7 @@ extends CharacterBody2D
 const SPEED = 200
 const RAY_FLOOR_POSITION_X = 60
 const RAY_WALLTARGET_POSITION_X = 60
-var gravity = ProjectSettings.get_setting("physics/2d/default_gravety")
+var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 
 func _ready():

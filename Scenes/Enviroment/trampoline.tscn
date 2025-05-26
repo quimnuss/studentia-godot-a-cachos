@@ -98,13 +98,11 @@ animation = &"idle"
 collision_mask = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="activation_area"]
-visible = false
 modulate = Color(0.92549, 0.988235, 0.027451, 1)
 position = Vector2(-0.5, 3.75)
 shape = SubResource("RectangleShape2D_j3q6k")
 
 [node name="object_collision" type="StaticBody2D" parent="."]
-visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="object_collision"]
 position = Vector2(-0.5, 9)
