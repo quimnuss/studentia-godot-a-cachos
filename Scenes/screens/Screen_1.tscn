@@ -1,0 +1,100 @@
+[gd_scene load_steps=12 format=3 uid="uid://b3cui8pbxa8b3"]
+
+[ext_resource type="PackedScene" uid="uid://b8jhqs46s266d" path="res://Scenes/characters/ninja_frog.tscn" id="1_pmplh"]
+[ext_resource type="PackedScene" uid="uid://bdoqop8ctp2rw" path="res://Scenes/Enviroment/escenario_1.tscn" id="2_g0qtg"]
+[ext_resource type="PackedScene" uid="uid://c1rwtoonig3g1" path="res://parallax_background.tscn" id="3_g0qtg"]
+[ext_resource type="PackedScene" uid="uid://bl4xb5hlhi11" path="res://Scenes/Enviroment/movingPlataform_1.tscn" id="4_hpnrt"]
+[ext_resource type="PackedScene" uid="uid://bvt1u33f8jmqx" path="res://Scenes/enemys/saw.tscn" id="5_s7kfi"]
+[ext_resource type="PackedScene" uid="uid://dyd0sq02nymj1" path="res://Scenes/Enviroment/trampoline.tscn" id="6_mc0ha"]
+[ext_resource type="PackedScene" uid="uid://cs7m28nyoegp1" path="res://Scenes/enemys/spikeball.tscn" id="7_82tjm"]
+
+[sub_resource type="Curve2D" id="Curve2D_hpnrt"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 324, 459, 0, 0, 0, 0, 669, 456, 0, 0, 0, 0, 669, 546, 0, 0, 0, 0, 322, 547)
+}
+point_count = 4
+
+[sub_resource type="Animation" id="Animation_mc0ha"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:progress_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_s7kfi"]
+resource_name = "regular_move"
+length = 6.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:progress_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 3, 6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 1.0, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_82tjm"]
+_data = {
+&"RESET": SubResource("Animation_mc0ha"),
+&"regular_move": SubResource("Animation_s7kfi")
+}
+
+[node name="Screen_1" type="Node2D"]
+
+[node name="TileMap" parent="." instance=ExtResource("2_g0qtg")]
+
+[node name="ninja_frog" parent="." instance=ExtResource("1_pmplh")]
+position = Vector2(729, 434)
+
+[node name="ParallaxBackground" parent="." instance=ExtResource("3_g0qtg")]
+
+[node name="Path2D" type="Path2D" parent="."]
+curve = SubResource("Curve2D_hpnrt")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
+position = Vector2(324, 459)
+rotation = -0.00869543
+rotates = false
+loop = false
+
+[node name="AnimatableBody2D" parent="Path2D/PathFollow2D" instance=ExtResource("4_hpnrt")]
+position = Vector2(-1.99994, -0.0173993)
+rotation = 0.00869543
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Path2D/PathFollow2D"]
+libraries = {
+&"": SubResource("AnimationLibrary_82tjm")
+}
+autoplay = "regular_move"
+speed_scale = 0.3
+
+[node name="saw" parent="." instance=ExtResource("5_s7kfi")]
+position = Vector2(744, 593)
+
+[node name="saw2" parent="." instance=ExtResource("5_s7kfi")]
+position = Vector2(997, 591)
+
+[node name="Node2D" parent="." instance=ExtResource("6_mc0ha")]
+position = Vector2(1170, 568)
+
+[node name="spikeball" parent="." instance=ExtResource("7_82tjm")]
+position = Vector2(1625, 549)
+
+[node name="spikeball2" parent="." instance=ExtResource("7_82tjm")]
+position = Vector2(1755, 531)
+
+[node name="spikeball4" parent="." instance=ExtResource("7_82tjm")]
+position = Vector2(1865, 533)
